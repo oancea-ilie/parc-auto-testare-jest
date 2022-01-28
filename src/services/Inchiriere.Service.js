@@ -106,6 +106,10 @@ export default class InchiriereService{
         }
     }
 
+    deleteAll = async()=>{
+        await this.sequelize.query('delete from inchirieris;');
+    }
+
     update= async(id, user)=>{
         let rez = await this.getById(id);
         

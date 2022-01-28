@@ -117,6 +117,20 @@ export default class InchiriereController{
         });
     }
 
+    deleteAll = async()=>{
+        this.route.delete("/delete/all", async(req,res,next)=>{
+            try{
+                
+                await this.inchiriereService.deleteAll();
+
+                res.status(204).end();
+
+            }catch(e){
+                next(e);
+            }
+        });
+    }
+
     update = async()=>{
         this.route.put("/:id", async(req,res,next)=>{
             try{

@@ -16,14 +16,15 @@ export default class PersoanaController{
          this.createPerson();
          this.deletePerson();
          this.updatePerson();
+         this.deleteAll();
 
          this.catchErr();
      }
 
 
-     getAllPersons= async ()=>{
+    getAllPersons= async ()=>{
 
-         this.route.get("/", async (req,res,next)=>{
+        this.route.get("/", async (req,res,next)=>{
              try{
 
                 let pers = await this.persoanaService.getAll();
@@ -67,6 +68,21 @@ export default class PersoanaController{
             }
         })
     }
+
+    deleteAll = async()=>{
+        this.route.delete("/delete/all", async(req,res,next)=>{
+            try{
+                
+                await this.persoanaService.deleteAll();
+
+                res.status(204).end();
+
+            }catch(e){
+                next(e);
+            }
+        });
+    }
+
 
     deletePerson = async()=>{
         this.route.delete("/:id", async(req,res,next)=>{

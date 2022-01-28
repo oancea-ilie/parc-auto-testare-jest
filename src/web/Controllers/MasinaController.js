@@ -101,6 +101,21 @@ export default class MasinaController{
         });
     }
 
+    deleteAll = async()=>{
+        this.route.delete("/delete/all", async(req,res,next)=>{
+            try{
+                
+                await this.masinaService.deleteAll();
+
+                res.status(204).end();
+
+            }catch(e){
+                next(e);
+            }
+        });
+    }
+
+
     update = async()=>{
         this.route.put("/:id", async(req,res,next)=>{
             try{

@@ -108,6 +108,10 @@ export default class MasinaService{
         }
     }
 
+    deleteAll = async()=>{
+        await this.sequelize.query('delete from masinas;');
+    }
+
     update= async(id, user)=>{
         let rez = await this.getById(id);
         

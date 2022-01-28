@@ -2,75 +2,149 @@ import axios from "axios";
 
 export default class Data{
 
-    api(path, method ='GET', data= null){
-        return axios({method, path, data});
+    api(url, method ='GET', data= null){
+        return axios({method, url, data});
     }
-    
-    async getAllCars(){
+
+    // persons
+    async getAllPersons(){
         try{
-            const rez = await this.api('http://localhost:5000/api/v1/cars');
-
-            if(rez.status == 200){
-                return rez.json();
-            }else{
-
-                return null;
-            }
+            const rez = await this.api('http://localhost:5000/api/v1/persons');
+        
+            return rez;
 
         }catch(e){
-            console.log(e);
+          
+            return e;
         }
         
     }
-
-
-    async getCustomerById(id){
+    
+    async getPersonById(id){
 
         try{
             const rez = await this.api(`http://localhost:5000/api/v1/persons/${id}`);
 
-            if(rez.status == 200){
-                return rez.json();
-            }else{
-                return null;
-            }
+            return rez;
 
         }catch(e){
-
-            console.log(e);
-
+            return e;
         }
         
     }
 
+    async createPerson(newCustomer){
+        try{
+            const rez = await this.api(`http://localhost:5000/api/v1/persons`,'POST', newCustomer);
+            
+            return rez;
+
+         }catch(e){
+            return e;
+         }
+    }
+
+    async updatePassword(newPassword,id){
+        try{
+            const rez = await this.api(`http://localhost:5000/api/v1/persons/${id}`,'put', newPassword);
+
+            return rez;
+
+        }catch(e){
+            return e;
+        }
+        
+    }
+
+    async deletePerson(id){
+        try{
+            const rez = await this.api(`http://localhost:5000/api/v1/persons/${id}`, 'delete');
+
+            return rez;
+
+        }catch(e){
+          
+            return e;
+        }
+        
+    }
+
+    async deleteAllPersons(){
+        try{
+            const rez = await this.api('http://localhost:5000/api/v1/persons/delete/all', 'delete');
+
+            return rez;
+
+        }catch(e){
+          
+            return e;
+        }
+        
+    }
+
+    //cars
+    async getAllCars(){
+        try{
+            const rez = await this.api('http://localhost:5000/api/v1/cars');
+            
+            return rez.data;
+
+        }catch(e){
+          
+            return e;
+        }
+        
+    }
+
+    async getCarById(id){
+
+        try{
+            const rez = await this.api(`http://localhost:5000/api/v1/cars/${id}`);
+
+            return rez.data;
+
+        }catch(e){
+            return e;
+        }
+        
+    }
+
+    async getCarsSort(sort){
+        try{
+            const rez = await this.api(`http://localhost:5000/api/v1/cars/sort/${sort}`);
+
+            return rez.data;
+
+        }catch(e){
+            return e;
+        }
+        
+    }
+
+
+    async deleteAllCars(){
+        try{
+            const rez = await this.api('http://localhost:5000/api/v1/cars/deleteAll', 'delete');
+
+            return rez.data;
+
+        }catch(e){
+          
+            return e;
+        }
+    }
+
+
+
+    //rentails
     async getRentailsByCustomerId(id){
         try{
             const rez = await this.api(`http://localhost:5000/api/v1/rentals/by-person-id/${id}`);
 
-            if(rez.status == 200){
-                return rez.json();
-            }else{
-                return null;
-            }
+            return rez.data;
 
         }catch(e){
-            console.log(e);
-        }
-        
-    }
-
-    async getAllCustomers(){
-        try{
-            const rez = await this.api('http://localhost:5000/api/v1/persons');
-
-            if(rez.status == 200){
-                return rez.json();
-            }else{
-                return null;
-            }
-
-        }catch(e){
-            console.log(e);
+            return e;
         }
         
     }
@@ -79,82 +153,24 @@ export default class Data{
         try{
             const rez = await this.api('http://localhost:5000/api/v1/rentals/join/join');
 
-            if(rez.status == 200){
-                return rez.json();
-            }else{
-                return null;
-            }
+            return rez.data;
 
         }catch(e){
-            console.log(e);
-        }
-        
-    }
-
-    async createCustomer(newCustomer){
-        try{
-            const response = await this.api(`http://localhost:5000/api/v1/persons`,'POST', newCustomer);
-            
-            if(response.status==204){
-                return [];
-
-            }else{
-
-                return null;
-            }
-
-         }catch(e){
-
-            console.log(e);
-
-         }
-    }
-
-    async getCarsSort(sort){
-        try{
-            const rez = await this.api(`http://localhost:5000/api/v1/cars/sort/${sort}`);
-
-            if(rez.status == 200){
-                return rez.json();
-            }else{
-                return null;
-            }
-
-        }catch(e){
-            console.log(e);
+            return e;
         }
         
     }
 
     async createInchiriere(nou){
         try{
-            const response = await this.api(`http://localhost:5000/api/v1/rentals`,'POST', nou);
+            const rez = await this.api(`http://localhost:5000/api/v1/rentals`,'POST', nou);
         
-            if(response.status == 204){
-                return [];
-            }else{
-                return null;
-            }
+            return rez.data;
 
          }catch(e){
-            console.log(e);
+            return e;
          }
         
     }
 
-    async updatePassword(newPassword,id){
-        try{
-            const rez = await this.api(`http://localhost:5000/api/v1/persons/${id}`,'PUT', newPassword);
-
-            if(rez.status == 204){
-                return [];
-            }else{
-                return null;
-            }
-
-        }catch(e){
-            console.log(e);
-        }
-        
-    }
 }

@@ -1,7 +1,7 @@
 
 export default class PersoanaService{
       
-    constructor({Persoana},{sequelize}){
+    constructor({Persoana},sequelize){
           this.persoana = Persoana;
           this.sequelize = sequelize;
     }
@@ -77,11 +77,18 @@ export default class PersoanaService{
         }
     }
 
+    deleteAll = async()=>{
+        await this.sequelize.query('delete from persoanas;');
+    }
+
     updateP= async(id, user)=>{
         let per = await this.getById(id);
         
         if(user.name == '' && user.email=='' && user.password == '' && user.phone == ''){
-            throw new Error("Nu exista propietati pentru update!");
+            throw new Error("Propietati goale pentru update!");
+        }
+        else if(!user.name && !user.email && !user.password && !user.phone){
+            throw new Error("Propietati invalide pentru update!");
         }
         if(per){
             
